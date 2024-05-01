@@ -50,19 +50,12 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
-      - name: Build with Hugo
-        env:
-          # For maximum backward compatibility with Hugo modules
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
-          TZ: America/Los_Angeles
-        run: |
-          cd docs
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
-            --destination "docs"      
+      - name: Build site
+        run: cd docs hugo --gc --minify --baseURL "https://13mai13.github.io/"
+  
+      - name: Move site to ./docs/public
+        run: mv public docs/public
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

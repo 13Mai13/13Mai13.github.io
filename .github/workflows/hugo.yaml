@@ -51,11 +51,13 @@ jobs:
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build site
-        run: cd docs hugo --gc --minify --baseURL "https://13mai13.github.io/"
+        run: |
+          cd docs
+          hugo --gc --minify --baseURL "https://13mai13.github.io/"
   
       - name: Move site to ./docs/public
         run: mv public docs/public
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

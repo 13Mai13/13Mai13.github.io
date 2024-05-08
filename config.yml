@@ -1,0 +1,90 @@
+baseURL: "https://pascalmichaillat.org/hugo-website/" 
+title: Mai's website
+paginate: 20
+theme: PaperMod
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+
+taxonomies:
+    tag: tags
+
+menu:
+    main:
+        - name: Posts
+          url: posts/
+          weight: 1 
+        - name: Papers
+          url: papers/
+          weight: 2
+
+params:
+    description: "I am a Staff Machine Learnning Engineer and Tech Lead"
+    author: Mai
+    DateFormat: "January 2006"
+    defaultTheme: light
+    hideFooter: false
+    disableThemeToggle: true
+    ShowShareButtons: false
+    ShowReadingTime: false
+    disableSpecial1stPost: true
+    disableAnchoredHeadings: true
+    ShowPostNavLinks: false
+    ShowBreadCrumbs: false
+    ShowCodeCopyButtons: true
+    ShowRssButtonInSectionTermList: false
+    ShowToc: false
+    disableScrollToTop: true
+    TocOpen: true
+    UseHugoToc: true
+    comments: false
+    math: true
+    profileMode:
+        enabled: true
+        title: Mai's website
+        subtitle: "Hello I'm Mai welcome to my web"
+        imageUrl: "graphs.png"
+        imageWidth: 160
+        imageHeight: 160
+        imageTitle: Graphs
+        buttons:
+        - name: Posts
+          url: posts/
+        - name: Papers
+          url: papers/
+  
+
+    socialIcons:
+        - name: Email
+          url: mailto:maialenberrondo13@gmail.com
+        - name: Google Scholar
+          url: https://scholar.google.com/citations?user=cL23w-4AAAAJ
+        - name: CV
+          url: cv/
+        - name: GitHub
+          url: https://github.com/13Mai13
+        - name: Twitter
+          url: https://twitter.com/MaialenBerrondo
+
+    assets:
+        disableHLJS: true
+        disableScrollBarStyle: true
+    cover:
+        hiddenInList: false
+        hiddenInSingle: true
+    label:
+      text: "Mai's website"
+      icon: favicon.ico
+      iconHeight: 18
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+    highlight:
+        guessSyntax: true
+        style: autumn 
+    tableOfContents:
+        endLevel: 2
+        ordered: false
+        startLevel: 2

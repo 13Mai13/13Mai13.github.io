@@ -17,6 +17,9 @@ menu:
         - name: Papers
           url: papers/
           weight: 2
+        - name: PhD
+          url: phd/
+          weight: 2
 
 params:
     description: "I am a Staff Machine Learnning Engineer and Tech Lead"
@@ -49,23 +52,28 @@ params:
         imageTitle: Graphs
         buttons:
         - name: Posts
-          url: posts/
+          url: /posts/
         - name: Papers
-          url: papers/
+          url: /papers/
+        - name: PhD
+          url: /phd/
+        - name: Tags
+          url: /tags/
   
 
     socialIcons:
         - name: Email
           url: mailto:maialenberrondo13@gmail.com
         - name: Google Scholar
-          url: https://scholar.google.com/citations?user=cL23w-4AAAAJ
+          url: https://scholar.google.com/citations?user=N9YOirgAAAAJ&hl=en
         - name: CV
           url: cv/
         - name: GitHub
           url: https://github.com/13Mai13
         - name: Twitter
           url: https://twitter.com/MaialenBerrondo
-
+        - name: linkedin
+          url: www.linkedin.com/in/maialen-berrondo-43197b94
     assets:
         disableHLJS: true
         disableScrollBarStyle: true
@@ -74,7 +82,7 @@ params:
         hiddenInSingle: true
     label:
       text: "Mai's website"
-      icon: favicon.ico
+      icon: data-model.png
       iconHeight: 18
 
 markup:

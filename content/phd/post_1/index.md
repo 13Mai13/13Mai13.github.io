@@ -3,11 +3,11 @@ title: "Application of Artificial Intelligence Techniques to Detect Fake News: A
 date: 2023-12-18
 tags: ["PhD","Fake News"]
 author: ["Maialen Berrondo Otermin"]
-description: "This book discusses Portugese irregular verbs in great details."
+description: "literature review on artificial intelligence techniques applied to fake news detection"
 summary: "This book discusses Portugese irregular verbs in great details."
 editPost:
-    URL: "http://www.alexandermccallsmith.com/book/portuguese-irregular-verbs?series=von-igelfeld-series"
-    Text: "Regensburg University Press"
+    URL: "https://www.mdpi.com/2079-9292/12/24/5041"
+    Text: "Electronics (Basel)"
 showToc: false
 disableAnchoredHeadings: false
 

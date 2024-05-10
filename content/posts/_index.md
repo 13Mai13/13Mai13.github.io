@@ -1,5 +1,8 @@
 ---
 title: "posts"
-description: "Book by Professor Dr von Igelfeld's."
+description: "Placeholder for all my writting"
 ---
-bwlgmaoenb;klmvr
+
+# Writting
+
+This is a central hub for all my writing, encompassing both articles and hands-on projects. You can utilize the [tags](/tags/) section to filter content based on specific topics of interest.

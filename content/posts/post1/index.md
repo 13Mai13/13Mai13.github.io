@@ -1,11 +1,11 @@
 ---
-title: "Portugese Irregular Verbs" 
+title: "This is a Sample" 
 date: 1997-01-01
-tags: ["Portugese","irregular verbs","philology"]
+tags: ["test"]
 tags_weight: 22
-author: ["Moritz-Maria von Igelfeld"]
-description: "This book discusses Portugese irregular verbs in great details."
-summary: "This book discusses Portugese irregular verbs in great details."
+author: ["Mai"]
+description: "khadnk vlz"
+summary: "Tns; dl"
 cover:
     image: "book1.png"
     alt: "Portugese Irregular Verbs"

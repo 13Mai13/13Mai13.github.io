@@ -14,9 +14,6 @@ menu:
         - name: Posts
           url: posts/
           weight: 1 
-        - name: Papers
-          url: papers/
-          weight: 2
         - name: PhD
           url: phd/
           weight: 2
@@ -53,8 +50,6 @@ params:
         buttons:
         - name: Posts
           url: /posts/
-        - name: Papers
-          url: /papers/
         - name: PhD
           url: /phd/
         - name: Tags

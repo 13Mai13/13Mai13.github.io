@@ -39,6 +39,7 @@ params:
     UseHugoToc: true
     comments: false
     math: true
+    tableWidth: true
     profileMode:
         enabled: true
         title: Mai's website

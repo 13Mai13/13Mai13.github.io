@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Domain Specific Error Handling vs Try-Except | Mai&#39;s website</title>
+<meta name="keywords" content="Software Engineering, Tradeoffs">
+<meta name="description" content="This is a tradeoff document between two approaches in error handleling">
+<meta name="author" content="Mai">
+<link rel="canonical" href="http://localhost:1313/posts/post_1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f1e4501a2ac2bf9fff5dc0c77f152affb825b371cb176acfcf9201015d59b4d4.css" integrity="sha256-8eRQGirCv5//XcDHfxUq/7gls3HLF2rPz5IBAV1ZtNQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/post_1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Domain Specific Error Handling vs Try-Except" />
+<meta property="og:description" content="This is a tradeoff document between two approaches in error handleling" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/post_1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-05-12T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Domain Specific Error Handling vs Try-Except"/>
+<meta name="twitter:description" content="This is a tradeoff document between two approaches in error handleling"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Domain Specific Error Handling vs Try-Except",
+      "item": "http://localhost:1313/posts/post_1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Domain Specific Error Handling vs Try-Except",
+  "name": "Domain Specific Error Handling vs Try-Except",
+  "description": "This is a tradeoff document between two approaches in error handleling",
+  "keywords": [
+    "Software Engineering", "Tradeoffs"
+  ],
+  "articleBody": " Context In this trade-off document, we will explore the pros and cons of using Domain-Specific Error Handling (DAG) versus regular try-catch methods for error handling in software development. We will weigh the advantages and disadvantages of each approach to determine which one is best suited for different projects.\nWhy do we need error handleing at all? For any service to be running 24/7 and reach SLO (service level objectives) error handleing is key.\nDetect and recover from errors: When an error occurs, error handling helps your program detect the issue, log it, and take corrective action (e.g., retry the operation or terminate the program). Improve reliability: By anticipating and preparing for potential errors, you can ensure that your program is more reliable and less prone to crashing or producing incorrect results. Enhance user experience: When an error occurs, a well-designed error handling mechanism can provide helpful error messages, warnings, or hints to the user, making it easier for them to diagnose and fix the issue. Facilitate debugging: Error handling provides valuable information about errors that occur during program execution, making it easier to debug and identify the root cause of the problem. Meet requirements and standards: In many cases, error handling is a requirement or standard in Options DAG Method:\nPros:\nImproved error handling: By focusing on specific domain-related errors, DAG provides more targeted and efficient error handling. Decoupling: DAG promotes loose coupling between code modules, making it easier to modify or replace individual components within a domain. Better debugging: Since DAG isolates errors within a specific domain, developers can focus on understanding the underlying causes of issues. Cons:\nIncreased complexity: Implementing DAG requires a deeper understanding of the domain and its specific error-handling requirements. Over-engineering: DAG may be overkill for simple programs or those with limited domain-specific error handling needs. Regular Try-Catch Method:\nPros:\nSimpllicity: Regular try-catch blocks are easier to implement and require less overhead than DAG implementations. Flexibility: General-purpose error handling can handle a wide range of exceptions, making it suitable for programs with diverse error-handling needs. Cons:\nLimited domain-specific error handling: General-purpose error handling may not provide the same level of targeted error handling as DAG. Coupling: Regular try-catch blocks can lead to tight coupling between code modules, making it harder to modify or replace individual components. Python example Regular Try-Except Method:\ndef calculate_area(length, width): try: if length \u003c= 0 or width \u003c= 0: raise ValueError(\"Length and Width must be positive numbers.\") return length * width except TypeError: print(\"Error: Both Length and Width must be numbers.\") except ValueError as ve: print(f\"Error: {ve}\") print(calculate_area(4, 5)) # Output: 20 print(calculate_area(-1, 3)) # Output: Error: Length and Width must be positive numbers. print(calculate_area('a', 3)) # Output: Error: Both Length and Width must be numbers. DAG (Domain-Specific Error Handling) Method:\ndef calculate_area(length, width): if isinstance(length, (int, float)) and isinstance(width, (int, float)): try: if length \u003c= 0 or width \u003c= 0: raise ValueError(\"Length and Width must be positive numbers.\") return length * width except TypeError: print(\"Error: Both Length and Width must be numbers.\") else: raise TypeError(\"Both Length and Width must be numbers.\") print(calculate_area(4, 5)) # Output: 20 print(calculate_area(-1, 3)) # Output: Error: Length and Width must be positive numbers. print(calculate_area('a', 3)) # Output: Error: Both Length and Width must be numbers. In the regular try-except method example:\nWe have a single try block that attempts to calculate the area. If any of the conditions fail (e.g., length or width is negative), it raises a ValueError. The except block catches this error and prints an appropriate message. In the DAG method example:\nWe use type checking with isinstance() to ensure that both length and width are numbers. If they’re not, we raise a TypeError. Inside the try-except block, we still check for invalid input (negative numbers), but this time we catch any unexpected types using a single except TypeError: block. The DAG method is more specific to the domain of geometric calculations and catches errors that are directly related to this domain. It’s a more targeted approach to error handling, whereas the regular try-except method is more general-purpose.\nSummary Method Advantages Disadvantages DAG (Domain-Specific Error Handling) Improved error handling, better debugging, decoupling Increased complexity, over-engineering Regular Try-Catch Method Simpllicity, flexibility, ease of implementation Limiteddomain-specific error handling, coupling between code modules Trade off analysis DAG provides more targeted error handling but is more complex to implement. Regular try-catch methods are simpler and more flexible but may not provide the same level of domain-specific error handling.\nRecommendation When designing an error-handling strategy, consider the trade-offs between DAG and regular try-catch methods:\nIf you have a complex domain with specific error handling requirements, DAG might be more suitable. If your program has simple error handling needs or is not domain-specific, a regular try-catch block might be sufficient. Cite @book{V04, author = {Moritz-Maria von Igelfeld}, year = {1997}, title = {Portugese Irregular Verbs}, publisher = {Regensburg University Press}, address = {Regensburg, Germany}, url = {https://en.wikipedia.org/wiki/Portuguese_Irregular_Verbs}} ",
+  "wordCount" : "819",
+  "inLanguage": "en",
+  "datePublished": "2024-05-12T00:00:00Z",
+  "dateModified": "2024-05-12T00:00:00Z",
+  "author":[{
+    "@type": "Person",
+    "name": "Mai"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/post_1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mai's website",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+            {left: "\\begin{equation*}", right: "\\end{equation*}", display: true},
+            {left: "\\begin{align}", right: "\\end{align}", display: true},
+            {left: "\\begin{align*}", right: "\\end{align*}", display: true},
+            {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+            {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+            {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+ 
+
+
+</head>
+
+<body class="" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Mai&#39;s website">
+             
+                <img src="http://localhost:1313/data-model.png" alt="" aria-label="logo"
+                    height="18"
+                    width="18">Mai&#39;s website</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/phd/" title="PhD">
+                    <span>PhD</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Domain Specific Error Handling vs Try-Except
+    </h1>
+    <div class="post-meta"><span title='2024-05-12 00:00:00 +0000 UTC'>May 2024</span>&nbsp;&middot;&nbsp;Mai
+
+</div>
+  </header> 
+  <div class="post-content"><hr>
+<h1 id="context">Context<a hidden class="anchor" aria-hidden="true" href="#context">#</a></h1>
+<p>In this trade-off document, we will explore the pros and cons of using Domain-Specific Error Handling
+(DAG) versus regular try-catch methods for error handling in software development. We will weigh the
+advantages and disadvantages of each approach to determine which one is best suited for different projects.</p>
+<hr>
+<h1 id="why-do-we-need-error-handleing-at-all">Why do we need error handleing at all?<a hidden class="anchor" aria-hidden="true" href="#why-do-we-need-error-handleing-at-all">#</a></h1>
+<p>For any service to be running 24/7 and reach SLO (service level objectives) error handleing is key.</p>
+<ol>
+<li><strong>Detect and recover from errors</strong>: When an error occurs, error handling helps your program detect
+the issue, log it, and take corrective action (e.g., retry the operation or terminate the program).</li>
+<li><strong>Improve reliability</strong>: By anticipating and preparing for potential errors, you can ensure that
+your program is more reliable and less prone to crashing or producing incorrect results.</li>
+<li><strong>Enhance user experience</strong>: When an error occurs, a well-designed error handling mechanism can
+provide helpful error messages, warnings, or hints to the user, making it easier for them to diagnose
+and fix the issue.</li>
+<li><strong>Facilitate debugging</strong>: Error handling provides valuable information about errors that occur
+during program execution, making it easier to debug and identify the root cause of the problem.</li>
+<li><strong>Meet requirements and standards</strong>: In many cases, error handling is a requirement or standard in</li>
+</ol>
+<hr>
+<h1 id="options">Options<a hidden class="anchor" aria-hidden="true" href="#options">#</a></h1>
+<p><strong>DAG Method:</strong></p>
+<p>Pros:</p>
+<ol>
+<li><strong>Improved error handling</strong>: By focusing on specific domain-related errors, DAG provides more
+targeted and efficient error handling.</li>
+<li><strong>Decoupling</strong>: DAG promotes loose coupling between code modules, making it easier to modify or
+replace individual components within a domain.</li>
+<li><strong>Better debugging</strong>: Since DAG isolates errors within a specific domain, developers can focus on
+understanding the underlying causes of issues.</li>
+</ol>
+<p>Cons:</p>
+<ol>
+<li><strong>Increased complexity</strong>: Implementing DAG requires a deeper understanding of the domain and its
+specific error-handling requirements.</li>
+<li><strong>Over-engineering</strong>: DAG may be overkill for simple programs or those with limited
+domain-specific error handling needs.</li>
+</ol>
+<p><strong>Regular Try-Catch Method:</strong></p>
+<p>Pros:</p>
+<ol>
+<li><strong>Simpllicity</strong>: Regular try-catch blocks are easier to implement and require less overhead than
+DAG implementations.</li>
+<li><strong>Flexibility</strong>: General-purpose error handling can handle a wide range of exceptions, making it
+suitable for programs with diverse error-handling needs.</li>
+</ol>
+<p>Cons:</p>
+<ol>
+<li><strong>Limited domain-specific error handling</strong>: General-purpose error handling may not provide the
+same level of targeted error handling as DAG.</li>
+<li><strong>Coupling</strong>: Regular try-catch blocks can lead to tight coupling between code modules, making it
+harder to modify or replace individual components.</li>
+</ol>
+<h2 id="python-example">Python example<a hidden class="anchor" aria-hidden="true" href="#python-example">#</a></h2>
+<p><strong>Regular Try-Except Method:</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>def calculate_area(length, width):
+</span></span><span style="display:flex;"><span>    try:
+</span></span><span style="display:flex;"><span>        if length &lt;= 0 or width &lt;= 0:
+</span></span><span style="display:flex;"><span>            raise ValueError(&#34;Length and Width must be positive numbers.&#34;)
+</span></span><span style="display:flex;"><span>        return length * width
+</span></span><span style="display:flex;"><span>    except TypeError:
+</span></span><span style="display:flex;"><span>        print(&#34;Error: Both Length and Width must be numbers.&#34;)
+</span></span><span style="display:flex;"><span>    except ValueError as ve:
+</span></span><span style="display:flex;"><span>        print(f&#34;Error: {ve}&#34;)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(calculate_area(4, 5))  # Output: 20
+</span></span><span style="display:flex;"><span>print(calculate_area(-1, 3))  # Output: Error: Length and Width must be positive numbers.
+</span></span><span style="display:flex;"><span>print(calculate_area(&#39;a&#39;, 3))  # Output: Error: Both Length and Width must be numbers.
+</span></span></code></pre></div><p><strong>DAG (Domain-Specific Error Handling) Method:</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>def calculate_area(length, width):
+</span></span><span style="display:flex;"><span>    if isinstance(length, (int, float)) and isinstance(width, (int, float)):
+</span></span><span style="display:flex;"><span>        try:
+</span></span><span style="display:flex;"><span>            if length &lt;= 0 or width &lt;= 0:
+</span></span><span style="display:flex;"><span>                raise ValueError(&#34;Length and Width must be positive numbers.&#34;)
+</span></span><span style="display:flex;"><span>            return length * width
+</span></span><span style="display:flex;"><span>        except TypeError:
+</span></span><span style="display:flex;"><span>            print(&#34;Error: Both Length and Width must be numbers.&#34;)
+</span></span><span style="display:flex;"><span>    else:
+</span></span><span style="display:flex;"><span>        raise TypeError(&#34;Both Length and Width must be numbers.&#34;)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(calculate_area(4, 5))  # Output: 20
+</span></span><span style="display:flex;"><span>print(calculate_area(-1, 3))  # Output: Error: Length and Width must be positive numbers.
+</span></span><span style="display:flex;"><span>print(calculate_area(&#39;a&#39;, 3))  # Output: Error: Both Length and Width must be numbers.
+</span></span></code></pre></div><p>In the regular try-except method example:</p>
+<ul>
+<li>We have a single <code>try</code> block that attempts to calculate the area.</li>
+<li>If any of the conditions fail (e.g., length or width is negative), it raises a <code>ValueError</code>.</li>
+<li>The <code>except</code> block catches this error and prints an appropriate message.</li>
+</ul>
+<p>In the DAG method example:</p>
+<ul>
+<li>We use type checking with <code>isinstance()</code> to ensure that both <code>length</code> and <code>width</code> are numbers.</li>
+<li>If they&rsquo;re not, we raise a <code>TypeError</code>.</li>
+<li>Inside the try-except block, we still check for invalid input (negative numbers), but this time we
+catch any unexpected types using a single <code>except TypeError:</code> block.</li>
+</ul>
+<p>The DAG method is more specific to the domain of geometric calculations and catches errors that are
+directly related to this domain. It&rsquo;s a more targeted approach to error handling, whereas the regular
+try-except method is more general-purpose.</p>
+<h2 id="summary">Summary<a hidden class="anchor" aria-hidden="true" href="#summary">#</a></h2>
+<table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th><strong>Advantages</strong></th>
+<th><strong>Disadvantages</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAG (Domain-Specific Error Handling)</td>
+<td>Improved error handling, better debugging, decoupling</td>
+<td>Increased complexity, over-engineering</td>
+</tr>
+<tr>
+<td>Regular Try-Catch Method</td>
+<td>Simpllicity, flexibility, ease of implementation</td>
+<td>Limiteddomain-specific error handling, coupling between code modules</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="trade-off-analysis">Trade off analysis<a hidden class="anchor" aria-hidden="true" href="#trade-off-analysis">#</a></h1>
+<p>DAG provides more targeted error handling but is more complex to implement. Regular try-catch methods are simpler and more flexible but may not provide the same level of domain-specific error handling.</p>
+<hr>
+<h1 id="recommendation">Recommendation<a hidden class="anchor" aria-hidden="true" href="#recommendation">#</a></h1>
+<p>When designing an error-handling strategy, consider the trade-offs between DAG and regular try-catch
+methods:</p>
+<ul>
+<li>If you have a complex domain with specific error handling requirements, DAG might be more suitable.</li>
+<li>If your program has simple error handling needs or is not domain-specific, a regular try-catch block
+might be sufficient.</li>
+</ul>
+<hr>
+<h1 id="cite">Cite<a hidden class="anchor" aria-hidden="true" href="#cite">#</a></h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-BibTeX" data-lang="BibTeX"><span style="display:flex;"><span><span style="color:#0a0;text-decoration:underline">@book</span>{V04,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">author</span> = <span style="color:#a50">{Moritz-Maria von Igelfeld}</span>,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">year</span> = <span style="color:#a50">{1997}</span>,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">title</span> = <span style="color:#a50">{Portugese Irregular Verbs}</span>,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">publisher</span> = <span style="color:#a50">{Regensburg University Press}</span>,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">address</span> = <span style="color:#a50">{Regensburg, Germany}</span>,
+</span></span><span style="display:flex;"><span><span style="color:#1e90ff">url</span> = <span style="color:#a50">{https://en.wikipedia.org/wiki/Portuguese_Irregular_Verbs}</span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/software-engineering/">Software Engineering</a></li>
+      <li><a href="http://localhost:1313/tags/tradeoffs/">Tradeoffs</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    &copy; 2024 Mai&#39;s website
+    <span>
+    &middot;  Powered by 
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/pmichaillat/hugo-website/" rel="noopener" target="_blank">a modified version</a>
+         of 
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+</html>

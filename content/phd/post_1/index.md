@@ -3,8 +3,8 @@ title: "Application of Artificial Intelligence Techniques to Detect Fake News: A
 date: 2023-12-18
 tags: ["PhD","Fake News"]
 author: ["Maialen Berrondo Otermin"]
-description: "literature review on artificial intelligence techniques applied to fake news detection"
-summary: "This book discusses Portugese irregular verbs in great details."
+description: "Literature review on artificial intelligence techniques applied to fake news detection"
+summary: "Literature review on artificial intelligence techniques applied to fake news detection"
 editPost:
     URL: "https://www.mdpi.com/2079-9292/12/24/5041"
     Text: "Electronics (Basel)"

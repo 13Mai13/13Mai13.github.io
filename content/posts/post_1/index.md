@@ -160,11 +160,11 @@ might be sufficient.
 
 
 ```BibTeX
-@book{V04,
-author = {Moritz-Maria von Igelfeld},
-year = {1997},
-title = {Portugese Irregular Verbs},
-publisher = {Regensburg University Press},
-address = {Regensburg, Germany},
-url = {https://en.wikipedia.org/wiki/Portuguese_Irregular_Verbs}}
+@online{WinNT,
+  author = {Maialen Berrondo},
+  title = {Domain Specific Error Handling vs Try-Except},
+  year = 2024,
+  url = {https://13mai13.github.io/},
+  urldate = {2024-07-24}
+}
 ```

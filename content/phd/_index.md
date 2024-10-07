@@ -5,7 +5,7 @@ description: "Collection of my PhD articles"
 
 # Welcome to My PhD Research Section
 
-Greetings! This is my PhD journey in Applied Artificial Intelligence, with a keen focus on the critical sub-field of fake news detection. My interest in this area was sparked during my master's studies when I delved into the book "Social Physics." It was at that moment when I realized that fake news detection would become my primary research focus.
+Greetings! This is my PhD journey in Applied Artificial Intelligence, with a keen focus on the critical sub-field of fake news detection. My interest in this area was sparked during my master's studies when I delved into the book [Social Physics](https://www.amazon.es/Social-Physics-Spread-Lessons-Science/dp/1594205655). It was at that moment when I realized that fake news detection would become my primary research focus.
 
 Given the format of my master's thesis – structured by publications – I am excited to share all my research findings and advancements in this space through this platform.
 
